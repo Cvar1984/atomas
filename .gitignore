@@ -1,0 +1,7 @@
+/luarocks
+/.luarocks
+/lua
+/lua_modules
+/rockspec
+/*.rock
+
