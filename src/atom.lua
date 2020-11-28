@@ -26,19 +26,55 @@ function Atom:addProton(value)
     return self;
 end;
 
+function Atom:removeProton(value)
+    self.proton = self.proton - value;
+    return self;
+end;
+
+
 function Atom:addNeutron(value)
     self.neutron = self.neutron + value;
     return self;
 end;
 
+function Atom:removeNeutron(value)
+    self.neutron = self.neutron - value;
+    return self;
+end;
+
 function Atom:addElectron(value)
-    self.electron = self.electron + value;
+    self.proton = self.electron + value;
+    return self;
+end;
+
+
+function Atom:removeElectron(value)
+    self.electron = self.electron - value;
     return self;
 end;
 
 function Atom:getStructure()
     return self;
 end;
+
+function Atom:getAtomicNumber()
+end;
+
+function Atom:getIsotopeType()
+end;
+
+function Atom:getAtomicMass()
+    if self:getIsotopeType() ~= "stable" then
+        return self.proton + self.neutron;
+    end;
+end;
+
+function Atom:getMass()
+    local atomicNumber = self:getAtomicNumber();
+    local roundedAtomicMass = math.floor(self:getAtomicMass() + 0.5);
+    return roundedAtomicMass - atomicNumber;
+end;
+
 
 function Atom:__toString()
     local AtomStructure = self:getStructure();
@@ -47,5 +83,6 @@ function Atom:__toString()
         print(particle, value);
     end
     print("\n");
-end
+end;
+
 return Atom;
